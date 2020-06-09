@@ -38,12 +38,16 @@ while running:
             if len(current_images)>2:
                 current_images=current_images[1:]
     screen.fill((255,255,255))
+    skip=0
     for _, tile in enumerate(tiles):
         image_i= tile.image if tile.index in current_images else tile.box
         
         if  not tile.skip:
-            
             screen.blit(image_i, (tile.col*gc.image_size+gc.margin,tile.row*gc.image_size+gc.margin))
+        else:
+            skip+=1
+    if skip==16:
+        running=False
     display.flip()     
     if len(current_images)==2:
         idx1,idx2=current_images
